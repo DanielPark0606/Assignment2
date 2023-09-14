@@ -26,24 +26,20 @@ public class Game {
             System.out.println("What is your next guess?");
             System.out.println("Type in the characters for your guess and press enter.");
             String playerGuessInput = scanner.nextLine();
-            System.out.print("Enter guess: " + playerGuessInput);
+            System.out.print(playerGuessInput);
             // Parse the player's input into a Code object (R,G,B,O,...)
-            String[] playerGuessColors = playerGuessInput.split(" ");
+            String[] playerGuessColors = new String[playerGuessInput.length()];
+            for(int i = 0; i < playerGuessInput.length(); i++ ){
+                playerGuessColors[i] = String.valueOf(playerGuessInput.charAt(i));
+            }
             Code playerGuess = new Code(playerGuessColors);
-            if (gameBoard.isGuessCorrect(playerGuess)) {
-                gameBoard.addGuess(playerGuess);
+            gameBoard.addGuess(playerGuess);
+            Feedback feedback = gameBoard.generateFeedback(playerGuess);
+            //System.out.println(" -> " + feedback);
 
-                Feedback feedback = gameBoard.generateFeedback(playerGuess);
-                System.out.println("Feedback: " + feedback);
-
-                if (feedback.getBlackPegs() == GameConfiguration.pegNumber) {
-                    System.out.println("Congratulations! You've guessed the secret code: " + String.join(" ", gameBoard.getSecretCode().getColors()));
-                    break;
-                } else {
-                    System.out.println("Incorrect guess.");
-                }
-            } else {
-                System.out.println("Invalid guess. Please enter " + GameConfiguration.pegNumber + " valid colors.");
+            if (feedback.getBlackPegs() == GameConfiguration.pegNumber) {
+                System.out.println("Congratulations! You've guessed the secret code: " + String.join(" ", gameBoard.getSecretCode().getColors()));
+                break;
             }
         }
 
