@@ -11,6 +11,7 @@ public class Code {
         for (String color : colors) {
             if (!isValidColor(color)) {
                 System.out.println("-> INVALID GUESS");
+                break;
             }
         }
         this.colors = colors;
@@ -20,11 +21,14 @@ public class Code {
     }
 
     public boolean equals(Object obj){
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
         Code otherCode = (Code) obj;
-        return Arrays.equals(colors, otherCode.colors);
+        return Arrays.equals(this.getColors(), otherCode.colors);
     }
 
     public boolean isValidColor(String color){

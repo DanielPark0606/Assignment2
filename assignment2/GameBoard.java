@@ -17,8 +17,9 @@ public class GameBoard {
     }
 
     // Implement methods to add guesses, generate feedback, and check for game over
+    // game end when player correctly guesses code on last attempt
     public boolean isGameOver(){
-        return isOutOfGuesses() || isGuessCorrect(playerGuesses.get(playerGuesses.size() - 1));
+        return isOutOfGuesses() || (!playerGuesses.isEmpty() && isGuessCorrect(playerGuesses.get(playerGuesses.size() - 1)));
     }
     public boolean isOutOfGuesses() {
         return remainingGuesses <= 0;
@@ -31,6 +32,7 @@ public class GameBoard {
         return secretCode.equals(guess);
     }
     public void addGuess(Code guess) {
+        // if guess is valid add to history
         playerGuesses.add(guess);
         remainingGuesses--;
     }
@@ -78,6 +80,7 @@ public class GameBoard {
         // Update feedbackHistory with the new feedback.
         Feedback feedback = new Feedback(blackPegs, whitePegs);
         feedbackHistory.add(feedback);
+        System.out.println(" -> " + feedback);
         return feedback;
     }
 
