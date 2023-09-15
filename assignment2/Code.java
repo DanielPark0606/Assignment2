@@ -8,13 +8,13 @@ public class Code {
     public Code(String[] colors) {
         if(colors.length != GameConfiguration.pegNumber){
             valid_guess = false;
-            System.out.println("-> INVALID GUESS");
+            System.out.println(" -> INVALID GUESS");
         }
         else {
             for (String color : colors) {
                 if (!isValidColor(color)) {
                     valid_guess = false;
-                    System.out.println("-> INVALID GUESS");
+                    System.out.println(" -> INVALID GUESS");
                     break;
                 }
             }

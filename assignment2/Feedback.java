@@ -8,7 +8,6 @@ public class Feedback {
         this.blackPegs = blackPegs;
         this.whitePegs = whitePegs;
     }
-
     public int getBlackPegs(){
         return blackPegs;
     }
@@ -16,6 +15,6 @@ public class Feedback {
         return whitePegs;
     }
     public String toString() {
-        return blackPegs + "B_ " + whitePegs + "W";
+        return  blackPegs + "B_ " + whitePegs + "W";
     }
 }

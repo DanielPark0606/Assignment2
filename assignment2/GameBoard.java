@@ -8,7 +8,7 @@ public class GameBoard {
     private Code secretCode;
     private List<Code> playerGuesses;
     private List<Feedback> feedbackHistory;
-    private int remainingGuesses;
+    public int remainingGuesses;
 
     public GameBoard(Code secretCode, int maxGuesses) {
         this.secretCode = secretCode;
@@ -25,10 +25,7 @@ public class GameBoard {
     public boolean isOutOfGuesses() {
         return remainingGuesses <= 0;
     }
-    public Code getSecretCode(){
 
-        return secretCode;
-    }
     public boolean isGuessCorrect(Code guess){
         return secretCode.equals(guess);
     }
@@ -37,21 +34,12 @@ public class GameBoard {
         playerGuesses.add(guess);
         remainingGuesses--;
     }
-    public int getRemainingGuesses(){
-
-        return remainingGuesses;
-    }
-    public List<Code> getPlayerGuesses() {
-
-        return playerGuesses;
-    }
-
     public void getFeedbackHistory() {
         // print out code, tabs, feedback
         for(int i = 0; i <feedbackHistory.size(); i++){
             System.out.print(playerGuesses.get(i).getStringColors());
             System.out.print("\t\t");
-            System.out.print(feedbackHistory.get(i));
+            System.out.println(feedbackHistory.get(i));
         }
     }
     public void resetFeedbackHistory() {
@@ -59,10 +47,9 @@ public class GameBoard {
         feedbackHistory.clear();
     }
     public void resetPlayerGuesses() {
-
         playerGuesses.clear();
     }
-    public Feedback generateFeedback(Code guess) {
+    public void generateFeedback(Code guess) {
         // Implement logic to provide feedback (black and white pegs)
         int blackPegs = 0;
         int whitePegs = 0;
@@ -89,12 +76,15 @@ public class GameBoard {
                 }
             }
         }
-
         // Update feedbackHistory with the new feedback.
         Feedback feedback = new Feedback(blackPegs, whitePegs);
         feedbackHistory.add(feedback);
-        System.out.println(" -> " + feedback);
-        return feedback;
+        if(blackPegs == GameConfiguration.pegNumber){
+            System.out.println(" -> Result: " + feedback + " - You win !!");
+        }
+        else {
+            System.out.println(" -> Result: " + feedback);
+        }
     }
 
 }

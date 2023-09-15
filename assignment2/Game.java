@@ -21,11 +21,13 @@ public class Game {
         //generate  secret code
         System.out.println("Generating secret code ...");
         while (!gameBoard.isGameOver()) {
+            System.out.println("You have " + gameBoard.remainingGuesses + " guesses");
             System.out.println("What is your next guess?");
             System.out.println("Type in the characters for your guess and press enter.");
-            String playerGuessInput = scanner.nextLine();
+            String playerGuessInput = scanner.next();
             if(playerGuessInput.equals("HISTORY")){
                 gameBoard.getFeedbackHistory();
+                continue;
             }
             System.out.print(playerGuessInput);
             // Parse the player's input into a Code object (R,G,B,O,...)
@@ -36,14 +38,11 @@ public class Game {
             Code playerGuess = new Code(playerGuessColors);
             if(playerGuess.valid_guess) {
                 gameBoard.addGuess(playerGuess);
-                Feedback feedback = gameBoard.generateFeedback(playerGuess);
-                if (feedback.getBlackPegs() == GameConfiguration.pegNumber) {
-                    System.out.println("Congratulations! You've guessed the secret code: " + String.join(" ", gameBoard.getSecretCode().getColors()));
-                }
+                gameBoard.generateFeedback(playerGuess);
             }
         }
         if (gameBoard.isOutOfGuesses()) {
-            System.out.println("Out of guesses! The secret code was: " + String.join(" ", gameBoard.getSecretCode().getColors()));
+            System.out.println("Sorry, you are out of guesses. You lose, boo-hoo.");
         }
     }
 }
