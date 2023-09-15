@@ -1,6 +1,7 @@
 package assignment2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameBoard {
@@ -48,9 +49,9 @@ public class GameBoard {
     public void getFeedbackHistory() {
         // print out code, tabs, feedback
         for(int i = 0; i <feedbackHistory.size(); i++){
-            System.out.print(playerGuesses.get(i));
-            System.out.println("\t\t");
-            System.out.println(feedbackHistory.get(i));
+            System.out.print(playerGuesses.get(i).getStringColors());
+            System.out.print("\t\t");
+            System.out.print(feedbackHistory.get(i));
         }
     }
     public void resetFeedbackHistory() {

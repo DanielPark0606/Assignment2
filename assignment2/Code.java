@@ -2,7 +2,7 @@ package assignment2;
 import java.util.Arrays;
 
 public class Code {
-    private String[] colors;
+    public String[] colors;
     public boolean valid_guess = true;
     // have a boolean statement that shows if it is invalid guess or not
     public Code(String[] colors) {
@@ -22,6 +22,9 @@ public class Code {
         if(valid_guess){
             this.colors = colors;
         }
+    }
+    public String getStringColors(){
+        return String.join("", colors);
     }
     public String[] getColors(){
         return colors;
