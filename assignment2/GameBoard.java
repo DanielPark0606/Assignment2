@@ -45,9 +45,21 @@ public class GameBoard {
         return playerGuesses;
     }
 
-    public List<Feedback> getFeedbackHistory() {
+    public void getFeedbackHistory() {
+        // print out code, tabs, feedback
+        for(int i = 0; i <feedbackHistory.size(); i++){
+            System.out.print(playerGuesses.get(i));
+            System.out.println("\t\t");
+            System.out.println(feedbackHistory.get(i));
+        }
+    }
+    public void resetFeedbackHistory() {
 
-        return feedbackHistory;
+        feedbackHistory.clear();
+    }
+    public void resetPlayerGuesses() {
+
+        playerGuesses.clear();
     }
     public Feedback generateFeedback(Code guess) {
         // Implement logic to provide feedback (black and white pegs)

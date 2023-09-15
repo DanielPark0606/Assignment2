@@ -3,18 +3,25 @@ import java.util.Arrays;
 
 public class Code {
     private String[] colors;
-
+    public boolean valid_guess = true;
+    // have a boolean statement that shows if it is invalid guess or not
     public Code(String[] colors) {
         if(colors.length != GameConfiguration.pegNumber){
+            valid_guess = false;
             System.out.println("-> INVALID GUESS");
         }
-        for (String color : colors) {
-            if (!isValidColor(color)) {
-                System.out.println("-> INVALID GUESS");
-                break;
+        else {
+            for (String color : colors) {
+                if (!isValidColor(color)) {
+                    valid_guess = false;
+                    System.out.println("-> INVALID GUESS");
+                    break;
+                }
             }
         }
-        this.colors = colors;
+        if(valid_guess){
+            this.colors = colors;
+        }
     }
     public String[] getColors(){
         return colors;

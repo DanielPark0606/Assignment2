@@ -26,6 +26,10 @@ public class Game {
             System.out.println("What is your next guess?");
             System.out.println("Type in the characters for your guess and press enter.");
             String playerGuessInput = scanner.nextLine();
+            if(playerGuessInput.equals("HISTORY")){
+                gameBoard.getFeedbackHistory();
+                break;
+            }
             System.out.print(playerGuessInput);
             // Parse the player's input into a Code object (R,G,B,O,...)
             String[] playerGuessColors = new String[playerGuessInput.length()];
@@ -33,16 +37,15 @@ public class Game {
                 playerGuessColors[i] = String.valueOf(playerGuessInput.charAt(i));
             }
             Code playerGuess = new Code(playerGuessColors);
-            gameBoard.addGuess(playerGuess);
-            Feedback feedback = gameBoard.generateFeedback(playerGuess);
-            //System.out.println(" -> " + feedback);
-
-            if (feedback.getBlackPegs() == GameConfiguration.pegNumber) {
-                System.out.println("Congratulations! You've guessed the secret code: " + String.join(" ", gameBoard.getSecretCode().getColors()));
-                break;
+            if(playerGuess.valid_guess) {
+                gameBoard.addGuess(playerGuess);
+                Feedback feedback = gameBoard.generateFeedback(playerGuess);
+                if (feedback.getBlackPegs() == GameConfiguration.pegNumber) {
+                    System.out.println("Congratulations! You've guessed the secret code: " + String.join(" ", gameBoard.getSecretCode().getColors()));
+                    break;
+                }
             }
         }
-
         if (gameBoard.isOutOfGuesses()) {
             System.out.println("Out of guesses! The secret code was: " + String.join(" ", gameBoard.getSecretCode().getColors()));
         }
@@ -51,6 +54,9 @@ public class Game {
         char playAgain = scanner.next().charAt(0);
         if (playAgain == 'Y' || playAgain == 'y') {
             runGame(); // Restart game
+            // reset the player guesses array
+            gameBoard.resetFeedbackHistory();
+            gameBoard.resetPlayerGuesses();
         } else if (playAgain == 'N' || playAgain == 'n') {
             System.out.println("Thanks for playing!");
         }
