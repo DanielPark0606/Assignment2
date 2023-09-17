@@ -23,7 +23,7 @@ public class GameBoard {
         return isOutOfGuesses() || (!playerGuesses.isEmpty() && isGuessCorrect(playerGuesses.get(playerGuesses.size() - 1)));
     }
     public boolean isOutOfGuesses() {
-        return remainingGuesses <= 0;
+        return remainingGuesses == 0;
     }
 
     public boolean isGuessCorrect(Code guess){
@@ -38,16 +38,13 @@ public class GameBoard {
         // print out code, tabs, feedback
         for(int i = 0; i <feedbackHistory.size(); i++){
             System.out.print(playerGuesses.get(i).getStringColors());
-            System.out.print("\t\t");
+            System.out.print("\t\t\t\t\t\t\t\t");
             System.out.println(feedbackHistory.get(i));
         }
     }
     public void resetFeedbackHistory() {
 
         feedbackHistory.clear();
-    }
-    public void resetPlayerGuesses() {
-        playerGuesses.clear();
     }
     public void generateFeedback(Code guess) {
         // Implement logic to provide feedback (black and white pegs)
@@ -70,7 +67,7 @@ public class GameBoard {
                 for (int j = 0; j < GameConfiguration.pegNumber; j++) {
                     if (!secretCodeMatched[j] && guess.getColors()[i].equals(secretCode.getColors()[j])) {
                         whitePegs++;
-                        secretCodeMatched[i] = true;
+                        //secretCodeMatched[i] = true;
                         break;      // avoid counting same colors multiple times
                     }
                 }
@@ -80,10 +77,12 @@ public class GameBoard {
         Feedback feedback = new Feedback(blackPegs, whitePegs);
         feedbackHistory.add(feedback);
         if(blackPegs == GameConfiguration.pegNumber){
-            System.out.println(" -> Result: " + feedback + " - You win !!");
+            System.out.println(guess.getStringColors() + " -> Result: " + feedback + " - You win !!");
+            System.out.println();
         }
         else {
-            System.out.println(" -> Result: " + feedback);
+            System.out.println(guess.getStringColors() + " -> Result: " + feedback);
+            System.out.println();
         }
     }
 

@@ -15,6 +15,6 @@ public class Feedback {
         return whitePegs;
     }
     public String toString() {
-        return  blackPegs + "B_ " + whitePegs + "W";
+        return  blackPegs + "B_" + whitePegs + "W";
     }
 }

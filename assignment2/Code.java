@@ -5,16 +5,18 @@ public class Code {
     public String[] colors;
     public boolean valid_guess = true;
     // have a boolean statement that shows if it is invalid guess or not
-    public Code(String[] colors) {
+    public Code(String[] colors, String code) {
         if(colors.length != GameConfiguration.pegNumber){
             valid_guess = false;
-            System.out.println(" -> INVALID GUESS");
+            System.out.println(code + " -> INVALID GUESS");
+            System.out.println();
         }
         else {
             for (String color : colors) {
                 if (!isValidColor(color)) {
                     valid_guess = false;
-                    System.out.println(" -> INVALID GUESS");
+                    System.out.println(code + " -> INVALID GUESS");
+                    System.out.println();
                     break;
                 }
             }

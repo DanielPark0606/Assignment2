@@ -25,7 +25,7 @@ public class SecretCodeGenerator {
         for(int i=0; i<numberOfPegs; i++)
         {
             index=randomGenerator.nextInt(colors.length);
-            result+=colors[index];
+            result += colors[index];
         }
         return result;
     }
