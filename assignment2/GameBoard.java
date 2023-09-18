@@ -1,13 +1,12 @@
 package assignment2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameBoard {
-    private Code secretCode;
-    private List<Code> playerGuesses;
-    private List<Feedback> feedbackHistory;
+    public Code secretCode;
+    public List<Code> playerGuesses;
+    public List<Feedback> feedbackHistory;
     public int remainingGuesses;
 
     public GameBoard(Code secretCode, int maxGuesses) {
@@ -38,12 +37,11 @@ public class GameBoard {
         // print out code, tabs, feedback
         for(int i = 0; i <feedbackHistory.size(); i++){
             System.out.print(playerGuesses.get(i).getStringColors());
-            System.out.print("\t\t\t\t\t\t\t\t");
+            System.out.print("\t\t\t\t\t\t");
             System.out.println(feedbackHistory.get(i));
         }
     }
     public void resetFeedbackHistory() {
-
         feedbackHistory.clear();
     }
     public void generateFeedback(Code guess) {

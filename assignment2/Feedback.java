@@ -1,8 +1,8 @@
 package assignment2;
 
 public class Feedback {
-    private int blackPegs;
-    private int whitePegs;
+    public int blackPegs;
+    public int whitePegs;
 
     public Feedback(int blackPegs, int whitePegs) {
         this.blackPegs = blackPegs;

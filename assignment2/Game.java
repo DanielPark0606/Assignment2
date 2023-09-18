@@ -6,32 +6,42 @@ package assignment2;
  */
 import java.util.*;
 import java.util.Scanner;
-import java.util.Random;
 
 public class Game {
-    private GameBoard gameBoard;
-    private Scanner scanner;
+    public GameBoard gameBoard;
+    public static boolean continueGame;
 
-    public Game(GameBoard gameBoard, Scanner scanner) {
-        this.gameBoard = gameBoard;
-        this.scanner = scanner;
+    public Game() {
     }
-    public void playAgain(){
-        // Ask if the player wants to play again
-        System.out.print("Are you ready for another game? (Y/N): ");
-        System.out.println();
+
+    public void runGame(boolean mode){
+        Scanner scanner = new Scanner(System.in);
+        // initial start
+        System.out.print("Are you ready to play? (Y/N): ");
         char playAgain = scanner.next().charAt(0);
-        if (playAgain == 'Y') {
-            Driver.continueGame = true;
-            // reset the player guesses array
-            gameBoard.resetFeedbackHistory();
-            //gameBoard.resetPlayerGuesses();
-        } else{
-            Driver.continueGame = false;
+        System.out.println();
+        continueGame = playAgain == 'Y';
+
+        while(continueGame) {
+            // get the secret code
+            String code = SecretCodeGenerator.getInstance().getNewSecretCode();
+            String[] codeColors = new String[code.length()];
+            for(int i = 0; i < code.length(); i++ ){
+                codeColors[i] = String.valueOf(code.charAt(i));
+            }
+            // Initialize the game components
+            Code secretCode = new Code(codeColors, code);
+            if(mode){
+                System.out.println(code);
+            }
+            gameBoard = new GameBoard(secretCode, GameConfiguration.guessNumber); // set the game board
+            insertGuesses(scanner);
+            playAgain(scanner);
         }
+        scanner.close();
     }
 
-    public void runGame() {
+    public void insertGuesses(Scanner scanner) {
         //generate  secret code
         System.out.println("Generating secret code ...");
         System.out.println();
@@ -61,4 +71,20 @@ public class Game {
             System.out.println("Sorry, you are out of guesses. You lose, boo-hoo.");
         }
     }
+
+    public void playAgain(Scanner scanner){
+        // Ask if the player wants to play again
+        System.out.print("Are you ready for another game? (Y/N): ");
+        char playAgain = scanner.next().charAt(0);
+        if (playAgain == 'Y') {
+            continueGame = true;
+            // reset the player guesses array
+            gameBoard.resetFeedbackHistory();
+            //gameBoard.resetPlayerGuesses();
+        } else{
+            continueGame = false;
+        }
+    }
+
 }
+
